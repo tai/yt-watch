@@ -27,13 +27,18 @@ body {
   width: 100%;
   height: 1000px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   overflow-y: scroll;
 }
 
 .item {
   padding: 10px;
   border: 1px solid #fff;
+}
+
+.item-video {
+  width: 380px;
+  height: 200px;
 }
 </style>
 </head>
@@ -63,7 +68,7 @@ def gen(file):
     vid = f"""
 <div class="item">
 {title}<br/>
-<iframe width="380" height="200" src="{url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="item-video" src="{url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 """
     print(vid)

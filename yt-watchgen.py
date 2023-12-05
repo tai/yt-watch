@@ -69,6 +69,27 @@ $(() => {
       shown = true
     }
   });
+
+  let lastTap = 0
+  top.on('touchend', ev => {
+    var now = new Date().getTime()
+    var dur = now - lastTap
+
+    if (dur > 0 && dur < 500) {
+      if (shown) {
+        top.height('100vh')
+        bot.height(0)
+        shown = false
+      }
+      else {
+        top.height('50vh')
+        bot.height('50vh')
+        shown = true
+      }
+      ev.preventDefault();
+    }
+    lastTap = now
+  })
 });
 </script>
 </head>

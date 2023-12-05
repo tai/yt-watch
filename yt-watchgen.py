@@ -9,7 +9,10 @@ HEAD = """
 <title>Open Source Summit Japan 2023 Live Streams</title>
 <style>
 html, body {
+  width: 100%;
   height: 100%;
+  overflow: hidden;
+  margin: 0;
 }
 
 body {
@@ -19,15 +22,15 @@ body {
 
 .schedule {
   width: 100%;
-  height: 1000px;
+  height: 50vh;
   overflow-y: scroll;
 }
 
 .item-container {
   width: 100%;
-  height: 1000px;
+  height: 50vh;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(390px, 1fr));
   overflow-y: scroll;
 }
 
@@ -59,6 +62,16 @@ TAIL = """
 def gen(file):
   vids = json.load(open(file))
   vids = [v for v in vids if 'OSS Japan 2023' in v['title']]
+
+  # HACK: change title to "room - title"
+  for v in vids:
+    title = v['title']
+    n1, n2, n3, n4 = title.split('-', 4)
+    title = f"{n3} - {n2}".strip()
+    if len(title) > 40:
+      title = title[:40] + "..."
+    v['title'] = title
+  vids = sorted(vids, key=lambda v: v['title'])
 
   print(HEAD)
   for v in vids:

@@ -39,6 +39,12 @@ body {
   border: 1px solid #fff;
 }
 
+.item-title {
+  overflow: hidden;
+  font-size: 16pt;
+  white-space: nowrap;
+}
+
 .item-video {
   width: 380px;
   height: 200px;
@@ -87,11 +93,10 @@ def gen(file):
   # HACK: change title to "room - title"
   for v in vids:
     title = v['title']
-    n1, n2, n3, n4 = title.split('-', 4)
-    title = f"{n3} - {n2}".strip()
-    if len(title) > 40:
-      title = title[:40] + "..."
-    v['title'] = title
+    n1, title, room, n4 = title.split('-', 4)
+    room  = room.strip()
+    title = title.strip()
+    v['title'] = f"{room} - {title}"
   vids = sorted(vids, key=lambda v: v['title'])
 
   print(HEAD)
@@ -101,7 +106,7 @@ def gen(file):
 
     vid = f"""
 <div class="item">
-{title}<br/>
+<div class="item-title">{title}</div>
 <iframe class="item-video" src="{url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 """

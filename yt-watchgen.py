@@ -20,13 +20,13 @@ body {
   flex-direction: column;
 }
 
-.schedule {
+#schedule {
   width: 100%;
   height: 50vh;
   overflow-y: scroll;
 }
 
-.item-container {
+#item-container {
   width: 100%;
   height: 50vh;
   display: grid;
@@ -44,16 +44,37 @@ body {
   height: 200px;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+<script>
+$(() => {
+  let shown = true
+  let top = $('#item-container')
+  let bot = $('#schedule')
+
+  top.on('dblclick', ev => {
+    if (shown) {
+      top.height('100vh')
+      bot.height(0)
+      shown = false
+    }
+    else {
+      top.height('50vh')
+      bot.height('50vh')
+      shown = true
+    }
+  });
+});
+</script>
 </head>
 <body>
 
-<div class="item-container">
+<div id="item-container">
 """
 
 TAIL = """
 </div><!-- /item-container -->
 
-<iframe class="schedule" src="https://events.linuxfoundation.org/open-source-summit-japan/program/schedule/"></iframe>
+<iframe id="schedule" src="https://events.linuxfoundation.org/open-source-summit-japan/program/schedule/"></iframe>
 
 </body>
 </html>
